@@ -46,8 +46,9 @@ var questions = [{
 {
   title: "Which method adds one or more elements at the end of an array and returns the new length of the array.",
   choices: ["shift()", "pop()", "push()", "shift()"],
-  answer: 
-}]
+  answer: "push()"
+}
+]
 
 var timerEl = document.getElementById('timer');
 var startButton = document.getElementById('start');
@@ -55,11 +56,11 @@ var startButton = document.getElementById('start');
 
 
 // Timer that counts down from 5
-function countdown() {
+function startGame() {
   var timeLeft = 75;
 
   // TODO: Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
-  var timeInterval = setInterval(function() {
+  var countdown = setInterval(function() {
     //
     // YOUR CODE HERE
     //
@@ -71,11 +72,11 @@ function countdown() {
       timeLeft--;
     } else {
       timerEl.textContent = '';
-      clearInterval(timeInterval);
+      clearInterval(countdown);
       displayMessage();
     }
   }, 1000);
 }
 
 
-startButton.onclick = countdown;
+startButton.onclick = startGame;
