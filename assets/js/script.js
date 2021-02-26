@@ -95,6 +95,11 @@ var choice2 = document.createElement('button');
 var choice3 = document.createElement('button');
 var choice4 = document.createElement('button');
 
+//create variables for eventHandlers
+let $choice1 = document.querySelector('#count1');
+let $choice2 = document.querySelector('#count2');
+let $choice3 = document.querySelector('#count3');
+let $choice4 = document.querySelector('#count4');
 
 
 //function variables
@@ -195,23 +200,22 @@ function nextQuestion() {
   choice4.setAttribute('value', questionsArray[currentQuestion].choices[3]);
   choice4.id = 'choice4';
   choicesEl.appendChild(choice4);
+
+  //eventHandlers to know which choice was selected
+  $choice1.addEventListener('click', function() {
+    if (choice1.value !== questionsArray[currentQuestion].answer) {
+      this.timeLeft -= 10;
+    } else {
+      score += 20;
+    }
+  });
+
 }
 
 
-//create variables for eventHandlers
-let $choice1 = document.querySelector('#count1');
-let $choice2 = document.querySelector('#count2');
-let $choice3 = document.querySelector('#count3');
-let $choice4 = document.querySelector('#count4');
 
-//eventHandlers to know which choice was selected
-$choice1.addEventListener('click', function() {
-  if (choice1.value !== questionsArray[currentQuestion].answer) {
-    this.timeLeft -= 10;
-  } else {
-    score += 20;
-  }
-});
+
+
 
 /*
 function isCorrect() {
