@@ -14,3 +14,7 @@ nav {
 .quizBody {
   text-align: center;
 }
+
+#quizQuestion {
+  text-align: center;
+}
