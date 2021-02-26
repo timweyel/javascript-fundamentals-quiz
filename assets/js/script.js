@@ -60,6 +60,24 @@ var questionsArray = [{
 // view the highscores?
 
 var body = document.body;
+
+var nav = document.createElement('nav');
+body.appendChild(nav);
+
+var highscoresEl = document.createElement('div');
+highscoresEl.className = "highscores";
+highscoresEl.textContent = 'Highscores';
+nav.appendChild(highscoresEl);
+
+var timerEl = document.createElement('div');
+timerEl.className = "timer";
+timerEl.textContent = 'Time Left: 75 seconds';
+nav.appendChild(timerEl);
+
+var introContainer = document.createElement('div');
+introContainer.setAttribute('class', 'intro-container');
+body.appendChild.introContainer;
+
 var h1El = document.createElement('h1');
 h1El.textContent = "JavaScript Fundamentals Quiz!"
 body.appendChild(h1El);
@@ -72,22 +90,22 @@ var startButton = document.createElement('button');
 startButton.textContent = "Start!";
 body.appendChild(startButton);
 
-var timerEl = document.getElementById("timer");
-var choicesEl = document.createElement("choice-button");
-
-var quizQuestion = document.createElement('h2');
 var choice1 = document.createElement('button');
 var choice2 = document.createElement('button');
 var choice3 = document.createElement('button');
 var choice4 = document.createElement('button');
 
+
+
+//function variables
 var countdown;
 var currentQuestion = -1;
+var score = 0;
 
 
 // Timer that counts down from 75
 function startGame() {
-  var timeLeft = 5;
+  var timeLeft = 25;
 
   // TODO: Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   countdown = setInterval(function() {
@@ -95,10 +113,10 @@ function startGame() {
     // YOUR CODE HERE
     //
    if (timeLeft > 1) {
-      timerEl.textContent = `${timeLeft} seconds remaining`;
+      timerEl.textContent = `Time left: ${timeLeft} seconds`;
       timeLeft--;
     } else if (timeLeft === 1) {
-      timerEl.textContent = `${timeLeft} second remaining`;
+      timerEl.textContent = `Time left: ${timeLeft} second`;
       timeLeft--;
     } else {
       timerEl.textContent = '';
@@ -114,7 +132,7 @@ startButton.onclick = startGame;
 //stops the timer and game ends
 function endGame() {
   clearInterval(countdown);
-
+/*
   var quizBody = 
   `
   <h2>Game Over</h2>
@@ -123,7 +141,8 @@ function endGame() {
   <button onclick="setScore()">Submit Score</button>
   `;
 
-  document.getElementById("quizMessage").innerHTML = quizBody;
+  document.getElementById("quizQuestionSection").innerHTML = quizBody;
+*/
 }
 
 //loop through questions
@@ -134,33 +153,65 @@ function nextQuestion() {
     endGame();
     return;
   }
-    
+
   //removes start message
-  /*h1El.body.removeChild(h1El);
-  h3El.body.removeChild(h3El);
-  startButton.body.removeChild(startButton);*/
   h1El = body.removeChild(h1El);
   h3El = body.removeChild(h3El);
   startButton = body.removeChild(startButton);
-
+  
   //displays the current question
-  quizQuestion.textContent = questionsArray[currentQuestion].question;
-  body.appendChild(quizQuestion);
+  var quizQuestionSection = document.createElement('div');
+  quizQuestionSection.className = 'quizSection';
+  body.appendChild(quizQuestionSection)
+  var quizQuestionText = document.createElement('h2');
+  quizQuestionSection.appendChild(quizQuestionText);
+  quizQuestionText.textContent = questionsArray[currentQuestion].question;
 
   //displays the current question's choices
+  var choicesEl = document.createElement('div');
+  quizQuestionSection.appendChild(choicesEl);
+  
+  //creates the buttons for choices
+  //choice1
   choice1.textContent = questionsArray[currentQuestion].choices[0];
-  choices.appendChild(choice1);
-
-  //TODO: I think I need to use setAttribute and set the 'value' so it gets passed to the eventhandler
+  choice1.setAttribute('value', questionsArray[currentQuestion].choices[0]);
+  choice1.id = 'choice1';
+  choicesEl.appendChild(choice1);
+  
+  //choice2
   choice2.textContent = questionsArray[currentQuestion].choices[1];
-  choices.appendChild(choice2);
+  choice2.setAttribute('value', questionsArray[currentQuestion].choices[1]);
+  choice2.id = 'choice2';
+  choicesEl.appendChild(choice2);
+
+  //choice3
   choice3.textContent = questionsArray[currentQuestion].choices[2];
-  choices.appendChild(choice3);
+  choice3.setAttribute('value', questionsArray[currentQuestion].choices[2]);
+  choice3.id = 'choice3';
+  choicesEl.appendChild(choice3);
+
+  //choice4
   choice4.textContent = questionsArray[currentQuestion].choices[3];
-  choices.appendChild(choice4);
+  choice4.setAttribute('value', questionsArray[currentQuestion].choices[3]);
+  choice4.id = 'choice4';
+  choicesEl.appendChild(choice4);
+}
 
-  //TODO: add eventhandlers here to compare choice to answer
 
+//create variables for eventHandlers
+let $choice1 = document.querySelector('#count1');
+let $choice2 = document.querySelector('#count2');
+let $choice3 = document.querySelector('#count3');
+let $choice4 = document.querySelector('#count4');
+
+//eventHandlers to know which choice was selected
+$choice1.addEventListener('click', function() {
+  if (choice1.value !== questionsArray[currentQuestion].answer) {
+    this.timeLeft -= 10;
+  } else {
+    score += 20;
+  }
+});
 
 /*
 function isCorrect() {
@@ -172,5 +223,3 @@ function isCorrect() {
   }
 }
 */
-
-//quizBodyEl.addEventListener("click", isCorrect);
