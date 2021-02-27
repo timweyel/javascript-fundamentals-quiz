@@ -128,6 +128,8 @@ function startGame() {
       endGame();
     }
   }, 1000);
+
+  startButton = body.removeChild(startButton);
   nextQuestion();
 };
 
@@ -152,16 +154,16 @@ function endGame() {
 
 //loop through questions
 function nextQuestion() {
-  currentQuestion++;
+  console.log(currentQuestion);
+  currentQuestion += 1;
 
   if (currentQuestion > questionsArray.length - 1) {
     endGame();
     return;
   }
-  h1El = body.removeChild(h1El);
-  h3El = body.removeChild(h3El);
-  startButton = body.removeChild(startButton);
 
+  // h1El = body.removeChild(h1El);
+  // h3El = body.removeChild(h3El);
   displayQuestion();
 }
 
@@ -207,17 +209,13 @@ function displayChoices() {
   choice4.id = 'choice4';
   choicesEl.appendChild(choice4);
 
-  isCorrect();
-}
-
-  //eventHandlers to know which choice was selected and if it's correct
-function isCorrect() {
   choice1.addEventListener('click', function() {
     if (choice1.value !== questionsArray[currentQuestion].answer) {
       timeLeft -= 10;
     } else {
       score += 20;
     }    
+    nextQuestion()
   });
   choice2.addEventListener('click', function() {
     if (choice2.value !== questionsArray[currentQuestion].answer) {
@@ -225,6 +223,7 @@ function isCorrect() {
     } else {
       score += 20;
     }
+    nextQuestion()
   });
   choice3.addEventListener('click', function() {
     if (choice3.value !== questionsArray[currentQuestion].answer) {
@@ -232,20 +231,24 @@ function isCorrect() {
     } else {
       score += 20;
     }
+    nextQuestion()
   });
   choice4.addEventListener('click', function() {
     if (choice4.value !== questionsArray[currentQuestion].answer) {
-      timeLefttimeLeftt -= 10;
+      timeLeft -= 10;
     } else {
       score += 20;
     }
-    
-    quizQuestionSection = div.removeChild(quizQuestionSection);
-    quizQuestionSection = div.removeChild(choicesEl);
     nextQuestion();
     
-  });
-}
+    quizQuestionSection = body.div.h2.removeChild(quizQuestionSection);
+    quizQuestionSection = body.div.removeChild(choicesEl);
+    console.log('text');
 
+    
+  });
+
+  
+}
 
 
