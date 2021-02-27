@@ -112,8 +112,6 @@ startButton.onclick = startGame;
 function startGame() {
   console.log("start game")
 
-
-
   // TODO: Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   countdown = setInterval(function () {
     //
@@ -136,8 +134,6 @@ function startGame() {
   h3El = body.removeChild(h3El);
   nextQuestion();
 };
-
-
 
 
 //stops the timer and game ends
