@@ -74,9 +74,9 @@ timerEl.className = "timer";
 timerEl.textContent = 'Time Left: 75 seconds';
 nav.appendChild(timerEl);
 
-var introContainer = document.createElement('div');
-introContainer.setAttribute('class', 'intro-container');
-body.appendChild.introContainer;
+// var introContainer = document.createElement('div');
+// introContainer.setAttribute('class', 'intro-container');
+// body.appendChild.introContainer;
 
 var h1El = document.createElement('h1');
 h1El.textContent = "JavaScript Fundamentals Quiz!"
@@ -90,27 +90,27 @@ var startButton = document.createElement('button');
 startButton.textContent = "Start!";
 body.appendChild(startButton);
 
+var quizQuestionSection = document.createElement('div');
+var quizQuestionText = document.createElement('h2');
+
 var choice1 = document.createElement('button');
 var choice2 = document.createElement('button');
 var choice3 = document.createElement('button');
 var choice4 = document.createElement('button');
-
-//create variables for eventHandlers
-let $choice1 = document.querySelector('#count1');
-let $choice2 = document.querySelector('#count2');
-let $choice3 = document.querySelector('#count3');
-let $choice4 = document.querySelector('#count4');
 
 
 //function variables
 var countdown;
 var currentQuestion = -1;
 var score = 0;
+var timeLeft = 25;
 
+
+startButton.onclick = startGame;
 
 // Timer that counts down from 75
 function startGame() {
-  var timeLeft = 25;
+  
 
   // TODO: Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   countdown = setInterval(function() {
@@ -131,7 +131,7 @@ function startGame() {
   nextQuestion();
 };
 
-startButton.onclick = startGame;
+
 
 
 //stops the timer and game ends
@@ -149,12 +149,7 @@ function endGame() {
   document.getElementById("quizQuestionSection").innerHTML = quizBody;
 */
 }
-/*
-  //removes start message
-  h1El = body.removeChild(h1El);
-  h3El = body.removeChild(h3El);
-  startButton = body.removeChild(startButton);
-*/
+
 //loop through questions
 function nextQuestion() {
   currentQuestion++;
@@ -163,16 +158,27 @@ function nextQuestion() {
     endGame();
     return;
   }
+  h1El = body.removeChild(h1El);
+  h3El = body.removeChild(h3El);
+  startButton = body.removeChild(startButton);
 
-  //displays the current question
-  var quizQuestionSection = document.createElement('div');
+  displayQuestion();
+}
+
+//displays the current question
+function displayQuestion() {
   quizQuestionSection.className = 'quizSection';
   body.appendChild(quizQuestionSection)
-  var quizQuestionText = document.createElement('h2');
+  
   quizQuestionSection.appendChild(quizQuestionText);
   quizQuestionText.textContent = questionsArray[currentQuestion].question;
 
-  //displays the current question's choices
+  displayChoices();
+}
+
+//displays the current question's choices
+function displayChoices() {
+
   var choicesEl = document.createElement('div');
   quizQuestionSection.appendChild(choicesEl);
   
@@ -201,31 +207,45 @@ function nextQuestion() {
   choice4.id = 'choice4';
   choicesEl.appendChild(choice4);
 
-  //eventHandlers to know which choice was selected
+  isCorrect();
+}
+
+  //eventHandlers to know which choice was selected and if it's correct
+function isCorrect() {
   choice1.addEventListener('click', function() {
     if (choice1.value !== questionsArray[currentQuestion].answer) {
-      this.timeLeft -= 10;
+      timeLeft -= 10;
+    } else {
+      score += 20;
+    }    
+  });
+  choice2.addEventListener('click', function() {
+    if (choice2.value !== questionsArray[currentQuestion].answer) {
+      timeLeft -= 10;
     } else {
       score += 20;
     }
   });
-
-  nextQuestion();
-
+  choice3.addEventListener('click', function() {
+    if (choice3.value !== questionsArray[currentQuestion].answer) {
+      timeLeft -= 10;
+    } else {
+      score += 20;
+    }
+  });
+  choice4.addEventListener('click', function() {
+    if (choice4.value !== questionsArray[currentQuestion].answer) {
+      timeLefttimeLeftt -= 10;
+    } else {
+      score += 20;
+    }
+    
+    quizQuestionSection = div.removeChild(quizQuestionSection);
+    quizQuestionSection = div.removeChild(choicesEl);
+    nextQuestion();
+    
+  });
 }
 
 
 
-
-
-
-/*
-function isCorrect() {
-  // choice correct?
-  if (this.value !== questionsArray[currentQuestion].answer) {
-    this.timeLeft -= 10;
-  } else {
-    this.timeLeft +=100;
-  }
-}
-*/
