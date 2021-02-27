@@ -90,9 +90,6 @@ var startButton = document.createElement('button');
 startButton.textContent = "Start!";
 body.appendChild(startButton);
 
-var quizQuestionSection = document.createElement('div');
-var quizQuestionText = document.createElement('h2');
-
 var choice1 = document.createElement('button');
 var choice2 = document.createElement('button');
 var choice3 = document.createElement('button');
@@ -109,11 +106,11 @@ let $choice4 = document.querySelector('#count4');
 var countdown;
 var currentQuestion = -1;
 var score = 0;
-var timeLeft = 25;
+
 
 // Timer that counts down from 75
 function startGame() {
-  
+  var timeLeft = 25;
 
   // TODO: Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   countdown = setInterval(function() {
@@ -152,21 +149,28 @@ function endGame() {
   document.getElementById("quizQuestionSection").innerHTML = quizBody;
 */
 }
-
+/*
+  //removes start message
+  h1El = body.removeChild(h1El);
+  h3El = body.removeChild(h3El);
+  startButton = body.removeChild(startButton);
+*/
 //loop through questions
 function nextQuestion() {
   currentQuestion++;
 
-  if (currentQuestion === questionsArray.length) {
-    h1El = body.removeChild(h1El);
-    h3El = body.removeChild(h3El);
-    startButton = body.removeChild(startButton);
-  } else if (currentQuestion > questionsArray.length - 1) {
+  if (currentQuestion > questionsArray.length - 1) {
     endGame();
     return;
   }
-  
-  displayQuestion();
+
+  //displays the current question
+  var quizQuestionSection = document.createElement('div');
+  quizQuestionSection.className = 'quizSection';
+  body.appendChild(quizQuestionSection)
+  var quizQuestionText = document.createElement('h2');
+  quizQuestionSection.appendChild(quizQuestionText);
+  quizQuestionText.textContent = questionsArray[currentQuestion].question;
 
   //displays the current question's choices
   var choicesEl = document.createElement('div');
@@ -200,43 +204,28 @@ function nextQuestion() {
   //eventHandlers to know which choice was selected
   choice1.addEventListener('click', function() {
     if (choice1.value !== questionsArray[currentQuestion].answer) {
-      timeLeft -= 10;
-    } else {
-      score += 20;
-    }
-  });
-
-  choice2.addEventListener('click', function() {
-    if (choice2.value !== questionsArray[currentQuestion].answer) {
-      timeLeft -= 10;
-    } else {
-      score += 20;
-    }
-  });
-
-  choice3.addEventListener('click', function() {
-    if (choice2.value !== questionsArray[currentQuestion].answer) {
-      timeLeft -= 10;
-    } else {
-      score += 20;
-    }
-  });
-
-  choice4.addEventListener('click', function() {
-    if (choice2.value !== questionsArray[currentQuestion].answer) {
-      timeLeft -= 10;
+      this.timeLeft -= 10;
     } else {
       score += 20;
     }
   });
 
   nextQuestion();
+
 }
 
-  //displays the current question
-function displayQuestion() {
-  quizQuestionSection.className = 'quizSection';
-  body.appendChild(quizQuestionSection)
-  quizQuestionSection.appendChild(quizQuestionText);
-  quizQuestionText.textContent = questionsArray[currentQuestion].question;
+
+
+
+
+
+/*
+function isCorrect() {
+  // choice correct?
+  if (this.value !== questionsArray[currentQuestion].answer) {
+    this.timeLeft -= 10;
+  } else {
+    this.timeLeft +=100;
+  }
 }
+*/
