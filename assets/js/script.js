@@ -103,7 +103,7 @@ var choice4 = document.createElement('button');
 var countdown;
 var currentQuestion = -1;
 var score = 0;
-var timeLeft = 25;
+var timeLeft = 75;
 
 
 startButton.onclick = startGame;
@@ -130,6 +130,8 @@ function startGame() {
   }, 1000);
 
   startButton = body.removeChild(startButton);
+  h1El = body.removeChild(h1El);
+  h3El = body.removeChild(h3El);
   nextQuestion();
 };
 
@@ -154,7 +156,8 @@ function endGame() {
 
 //loop through questions
 function nextQuestion() {
-  console.log(currentQuestion);
+  console.log('current Q', currentQuestion);
+  console.log('score', score);
   currentQuestion += 1;
 
   if (currentQuestion > questionsArray.length - 1) {
@@ -215,35 +218,42 @@ function displayChoices() {
     } else {
       score += 20;
     }    
+    console.log('choice1 selected', choice1);
     nextQuestion()
   });
+  
   choice2.addEventListener('click', function() {
     if (choice2.value !== questionsArray[currentQuestion].answer) {
       timeLeft -= 10;
     } else {
       score += 20;
     }
+    console.log('choice2 selected', choice2);
     nextQuestion()
   });
+
   choice3.addEventListener('click', function() {
     if (choice3.value !== questionsArray[currentQuestion].answer) {
       timeLeft -= 10;
     } else {
       score += 20;
     }
+    console.log('choice3 selected', choice3);
     nextQuestion()
   });
+
   choice4.addEventListener('click', function() {
     if (choice4.value !== questionsArray[currentQuestion].answer) {
       timeLeft -= 10;
     } else {
       score += 20;
     }
+    console.log('choice4 selected', choice4);
+ 
+    // quizQuestionSection = body.div.h2.removeChild(quizQuestionSection);
+    // quizQuestionSection = body.div.removeChild(choicesEl);
     nextQuestion();
-    
-    quizQuestionSection = body.div.h2.removeChild(quizQuestionSection);
-    quizQuestionSection = body.div.removeChild(choicesEl);
-    console.log('text');
+
 
     
   });
