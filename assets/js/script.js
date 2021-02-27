@@ -54,7 +54,7 @@ var questionsArray = [{
 // loop through questions
 // subtract time when there's an incorrect answer
 // end the game when time runs out
-  // what if all questions answered before time runs out?
+// what if all questions answered before time runs out?
 // restart the game
 // add the score?
 // view the highscores?
@@ -110,14 +110,16 @@ startButton.onclick = startGame;
 
 // Timer that counts down from 75
 function startGame() {
-  
+  console.log("start game")
+
+
 
   // TODO: Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
-  countdown = setInterval(function() {
+  countdown = setInterval(function () {
     //
     // YOUR CODE HERE
     //
-   if (timeLeft > 1) {
+    if (timeLeft > 1) {
       timerEl.textContent = `Time left: ${timeLeft} seconds`;
       timeLeft--;
     } else if (timeLeft === 1) {
@@ -141,23 +143,26 @@ function startGame() {
 //stops the timer and game ends
 function endGame() {
   clearInterval(countdown);
-/*
-  var quizBody = 
-  `
-  <h2>Game Over</h2>
-  <h3>put the score here</h3>
-  <input type = "text" id="name" placeholder = "Initials"></input>
-  <button onclick="setScore()">Submit Score</button>
-  `;
+  /*
+    var quizBody =
+    `
+    <h2>Game Over</h2>
+    <h3>put the score here</h3>
+    <input type = "text" id="name" placeholder = "Initials"></input>
+    <button onclick="setScore()">Submit Score</button>
+    `;
 
-  document.getElementById("quizQuestionSection").innerHTML = quizBody;
-*/
+    document.getElementById("quizQuestionSection").innerHTML = quizBody;
+  */
 }
 
 //loop through questions
 function nextQuestion() {
-  console.log('current Q', currentQuestion);
-  console.log('score', score);
+  quizQuestionSection.innerHTML = ''
+  console.log("next question")
+
+  // console.log('current Q', currentQuestion);
+  // console.log('score', score);
   currentQuestion += 1;
 
   if (currentQuestion > questionsArray.length - 1) {
@@ -172,9 +177,11 @@ function nextQuestion() {
 
 //displays the current question
 function displayQuestion() {
+  console.log("display question")
+
   quizQuestionSection.className = 'quizSection';
   body.appendChild(quizQuestionSection)
-  
+
   quizQuestionSection.appendChild(quizQuestionText);
   quizQuestionText.textContent = questionsArray[currentQuestion].question;
 
@@ -183,17 +190,27 @@ function displayQuestion() {
 
 //displays the current question's choices
 function displayChoices() {
-
+  console.log("display choice")
   var choicesEl = document.createElement('div');
+  choicesEl.addEventListener('click', function (e) {
+    if (e.target.matches('button')) {
+      if (e.target.value === questionsArray[currentQuestion].answer) {
+        console.log('correct')
+      } else {
+        console.log('incorrect')
+      }
+      nextQuestion();
+    }
+  })
   quizQuestionSection.appendChild(choicesEl);
-  
+
   //creates the buttons for choices
   //choice1
   choice1.textContent = questionsArray[currentQuestion].choices[0];
   choice1.setAttribute('value', questionsArray[currentQuestion].choices[0]);
   choice1.id = 'choice1';
   choicesEl.appendChild(choice1);
-  
+
   //choice2
   choice2.textContent = questionsArray[currentQuestion].choices[1];
   choice2.setAttribute('value', questionsArray[currentQuestion].choices[1]);
@@ -212,53 +229,58 @@ function displayChoices() {
   choice4.id = 'choice4';
   choicesEl.appendChild(choice4);
 
-  choice1.addEventListener('click', function() {
-    if (choice1.value !== questionsArray[currentQuestion].answer) {
-      timeLeft -= 10;
-    } else {
-      score += 20;
-    }    
-    console.log('choice1 selected', choice1);
-    nextQuestion()
-  });
-  
-  choice2.addEventListener('click', function() {
-    if (choice2.value !== questionsArray[currentQuestion].answer) {
-      timeLeft -= 10;
-    } else {
-      score += 20;
-    }
-    console.log('choice2 selected', choice2);
-    nextQuestion()
-  });
+  // choice1.addEventListener('click', function () {
+  //   console.log("choice 1 ev list")
 
-  choice3.addEventListener('click', function() {
-    if (choice3.value !== questionsArray[currentQuestion].answer) {
-      timeLeft -= 10;
-    } else {
-      score += 20;
-    }
-    console.log('choice3 selected', choice3);
-    nextQuestion()
-  });
+  //   if (choice1.value !== questionsArray[currentQuestion].answer) {
+  //     timeLeft -= 10;
+  //   } else {
+  //     score += 20;
+  //   }
+  //   // console.log('choice1 selected', choice1);
+  //   nextQuestion()
+  // });
 
-  choice4.addEventListener('click', function() {
-    if (choice4.value !== questionsArray[currentQuestion].answer) {
-      timeLeft -= 10;
-    } else {
-      score += 20;
-    }
-    console.log('choice4 selected', choice4);
- 
-    // quizQuestionSection = body.div.h2.removeChild(quizQuestionSection);
-    // quizQuestionSection = body.div.removeChild(choicesEl);
-    nextQuestion();
+  // choice2.addEventListener('click', function () {
+  //   console.log("choice 2 ev list")
+  //   if (choice2.value !== questionsArray[currentQuestion].answer) {
+  //     timeLeft -= 10;
+  //   } else {
+  //     score += 20;
+  //   }
+  //   // console.log('choice2 selected', choice2);
+  //   nextQuestion()
+  // });
+
+  // choice3.addEventListener('click', function () {
+  //   console.log("choice 3 ev list")
+  //   if (choice3.value !== questionsArray[currentQuestion].answer) {
+  //     timeLeft -= 10;
+  //   } else {
+  //     score += 20;
+  //   }
+  //   // console.log('choice3 selected', choice3);
+  //   nextQuestion()
+  // });
+
+  // choice4.addEventListener('click', function () {
+  //   console.log("choice 4 ev list")
+  //   if (choice4.value !== questionsArray[currentQuestion].answer) {
+  //     timeLeft -= 10;
+  //   } else {
+  //     score += 20;
+  //   }
+  //   // console.log('choice4 selected', choice4);
+
+  //   // quizQuestionSection = body.div.h2.removeChild(quizQuestionSection);
+  //   // quizQuestionSection = body.div.removeChild(choicesEl);
+  //   nextQuestion();
 
 
-    
-  });
 
-  
+  // });
+
+
 }
 
 
