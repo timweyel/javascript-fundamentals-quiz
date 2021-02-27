@@ -110,7 +110,7 @@ startButton.onclick = startGame;
 
 // Timer that counts down from 75
 function startGame() {
-  console.log("start game")
+  //console.log("start game")
 
   // TODO: Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   countdown = setInterval(function () {
@@ -139,23 +139,24 @@ function startGame() {
 //stops the timer and game ends
 function endGame() {
   clearInterval(countdown);
-  /*
-    var quizBody =
-    `
-    <h2>Game Over</h2>
-    <h3>put the score here</h3>
-    <input type = "text" id="name" placeholder = "Initials"></input>
-    <button onclick="setScore()">Submit Score</button>
-    `;
+  
 
-    document.getElementById("quizQuestionSection").innerHTML = quizBody;
-  */
+  console.log('end game');
+  quizQuestionSection.innerHTML = 
+  `
+  <h2>Game Over</h2>
+  <h3>Score: ${score}</h3>
+  <input type = "text" id="name" placeholder = "Initials"></input>
+  <button onclick="setScore()">Submit Score</button>
+  `;
+
+  
 }
 
 //loop through questions
 function nextQuestion() {
   quizQuestionSection.innerHTML = ''
-  console.log("next question")
+  //console.log("next question")
 
   // console.log('current Q', currentQuestion);
   // console.log('score', score);
@@ -173,7 +174,7 @@ function nextQuestion() {
 
 //displays the current question
 function displayQuestion() {
-  console.log("display question")
+  //console.log("display question")
 
   quizQuestionSection.className = 'quizSection';
   body.appendChild(quizQuestionSection)
@@ -184,20 +185,31 @@ function displayQuestion() {
   displayChoices();
 }
 
+
+  //   if (choice1.value !== questionsArray[currentQuestion].answer) {
+  //     timeLeft -= 10;
+  //   } else {
+  //     score += 20;
+  //   }
+
+
+//TODO: need to add to score if correct, subtract time if wrong
 //displays the current question's choices
 function displayChoices() {
-  console.log("display choice")
+  //console.log("display choice")
   var choicesEl = document.createElement('div');
   choicesEl.addEventListener('click', function (e) {
     if (e.target.matches('button')) {
-      if (e.target.value === questionsArray[currentQuestion].answer) {
-        console.log('correct')
+      if (e.target.value !== questionsArray[currentQuestion].answer) {
+        timeLeft -= 10;
       } else {
-        console.log('incorrect')
+        score += 20;
+        console.log(score);
       }
       nextQuestion();
     }
   })
+  
   quizQuestionSection.appendChild(choicesEl);
 
   //creates the buttons for choices
