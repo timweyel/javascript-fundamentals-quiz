@@ -224,7 +224,7 @@ function displayChoices() {
   choicesEl.addEventListener('click', function (e) {
     if (e.target.matches('button')) {
       if (e.target.value !== questionsArray[currentQuestion].answer) {
-        e.target.setAttribute('style', 'background-color: red');
+        //e.target.setAttribute('style', 'background-color: red');
         timeLeft -= 10;
       } else {
         score += 20;
