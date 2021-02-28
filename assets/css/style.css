@@ -16,9 +16,9 @@ nav {
   background-color: lightgray;
 }
 
-#quizQuestion {
+.quizSection {
   text-align: center;
-  margin: 50px;
+  padding: 50px;
 }
 
 button {
@@ -35,4 +35,16 @@ input[type=text] {
   border-radius: 5px;
   padding: 8px 16px 8px 16px;
   font-size: 17px;
+}
+
+h1 {
+  min-height: 75px;
+}
+
+h2 {
+  min-height: 100px;
+}
+
+h3 {
+  min-height: 50px;
 }

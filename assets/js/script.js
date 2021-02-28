@@ -156,8 +156,6 @@ function endGame() {
  
 }
 
-
-
 //store the scores on local storage
 function setScore() {
   localStorage.setItem("score", score);
@@ -169,7 +167,7 @@ function setScore() {
 function getScore() {
   quizQuestionSection.innerHTML = `
   <h2>` + localStorage.getItem("scoreName") + `'s score is:</h2>
-  <h1>` + localStorage.getItem("score") + `</h1><br> 
+  <h1>` + localStorage.getItem("score") + `</h1>
   
   <button onclick="clearScore()">Clear score!</button><button onclick="startGame()">Play Again!</button>
   
@@ -226,6 +224,7 @@ function displayChoices() {
   choicesEl.addEventListener('click', function (e) {
     if (e.target.matches('button')) {
       if (e.target.value !== questionsArray[currentQuestion].answer) {
+        e.target.setAttribute('style', 'background-color: red');
         timeLeft -= 10;
       } else {
         score += 20;

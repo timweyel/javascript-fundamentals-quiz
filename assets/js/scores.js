@@ -28,8 +28,7 @@ body.appendChild(h3El);
 var clearScoreButton = document.createElement('button');
 clearScoreButton.textContent = 'Clear score!';
 body.appendChild(clearScoreButton);
-clearScoreButton.setAttribute('onclick', clearScore());
-
+clearScoreButton.setAttribute('onclick', clearScore);
 
 
 function getScore() {
@@ -41,6 +40,8 @@ function getScore() {
   
   `;
 }
+
+getScore();
 
 function clearScore() {
   localStorage.clear();
