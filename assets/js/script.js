@@ -57,26 +57,31 @@ var questionsArray = [{
 // what if all questions answered before time runs out?
 // restart the game
 // add the score?
-// view the highscores?
+// view the scores?
 
 var body = document.body;
 
 var nav = document.createElement('nav');
 body.appendChild(nav);
 
-var highscoresEl = document.createElement('div');
-highscoresEl.className = "highscores";
-highscoresEl.textContent = 'Highscores';
-nav.appendChild(highscoresEl);
+var scoresEl = document.createElement('div');
+scoresEl.className = "scores";
+var a = document.createElement('a');
+var scoresLink = document.createTextNode("Scores");
+a.setAttribute('style', 'text-align: left');
+a.appendChild(scoresLink);
+a.title = 'Scores';
+a.href = "./scores.html";
+nav.appendChild(a);
+
+scoresLink.addEventListener('click', function(event) {
+  event.preventDefault();
+});
 
 var timerEl = document.createElement('div');
 timerEl.className = "timer";
 timerEl.textContent = 'Time Left: 75 seconds';
 nav.appendChild(timerEl);
-
-// var introContainer = document.createElement('div');
-// introContainer.setAttribute('class', 'intro-container');
-// body.appendChild.introContainer;
 
 var h1El = document.createElement('h1');
 h1El.textContent = "JavaScript Fundamentals Quiz!"
@@ -108,15 +113,13 @@ var timeLeft = 75;
 
 startButton.onclick = startGame;
 
-// Timer that counts down from 75
+// Timer that counts down from timeLeft
 function startGame() {
   //console.log("start game")
 
   // TODO: Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   countdown = setInterval(function () {
-    //
-    // YOUR CODE HERE
-    //
+
     if (timeLeft > 1) {
       timerEl.textContent = `Time left: ${timeLeft} seconds`;
       timeLeft--;
@@ -140,17 +143,46 @@ function startGame() {
 function endGame() {
   clearInterval(countdown);
   
-
   console.log('end game');
   quizQuestionSection.innerHTML = 
   `
   <h2>Game Over</h2>
   <h3>Score: ${score}</h3>
-  <input type = "text" id="name" placeholder = "Initials"></input>
+  <input type = "text" id="name" placeholder = "Your Name"></input>
   <button onclick="setScore()">Submit Score</button>
   `;
+ 
+}
 
+
+
+//store the scores on local storage
+function setScore() {
+  localStorage.setItem("score", score);
+  localStorage.setItem("scoreName",  document.getElementById('name').value);
+  getScore();
+}
+
+
+function getScore() {
+  quizQuestionSection.innerHTML = `
+  <h2>` + localStorage.getItem("scoreName") + `'s score is:</h2>
+  <h1>` + localStorage.getItem("score") + `</h1><br> 
   
+  <button onclick="clearScore()">Clear score!</button><button onclick="startGame()">Play Again!</button>
+  
+  `;
+}
+
+//clears the score name and value in the local storage if the user selects 'clear score'
+function clearScore() {
+  localStorage.clear();
+
+  resetGame();
+}
+
+function resetGame() {
+  location.reload();
 }
 
 //loop through questions
@@ -167,8 +199,7 @@ function nextQuestion() {
     return;
   }
 
-  // h1El = body.removeChild(h1El);
-  // h3El = body.removeChild(h3El);
+
   displayQuestion();
 }
 
@@ -186,14 +217,6 @@ function displayQuestion() {
 }
 
 
-  //   if (choice1.value !== questionsArray[currentQuestion].answer) {
-  //     timeLeft -= 10;
-  //   } else {
-  //     score += 20;
-  //   }
-
-
-//TODO: need to add to score if correct, subtract time if wrong
 //displays the current question's choices
 function displayChoices() {
   //console.log("display choice")
@@ -236,58 +259,6 @@ function displayChoices() {
   choice4.setAttribute('value', questionsArray[currentQuestion].choices[3]);
   choice4.id = 'choice4';
   choicesEl.appendChild(choice4);
-
-  // choice1.addEventListener('click', function () {
-  //   console.log("choice 1 ev list")
-
-  //   if (choice1.value !== questionsArray[currentQuestion].answer) {
-  //     timeLeft -= 10;
-  //   } else {
-  //     score += 20;
-  //   }
-  //   // console.log('choice1 selected', choice1);
-  //   nextQuestion()
-  // });
-
-  // choice2.addEventListener('click', function () {
-  //   console.log("choice 2 ev list")
-  //   if (choice2.value !== questionsArray[currentQuestion].answer) {
-  //     timeLeft -= 10;
-  //   } else {
-  //     score += 20;
-  //   }
-  //   // console.log('choice2 selected', choice2);
-  //   nextQuestion()
-  // });
-
-  // choice3.addEventListener('click', function () {
-  //   console.log("choice 3 ev list")
-  //   if (choice3.value !== questionsArray[currentQuestion].answer) {
-  //     timeLeft -= 10;
-  //   } else {
-  //     score += 20;
-  //   }
-  //   // console.log('choice3 selected', choice3);
-  //   nextQuestion()
-  // });
-
-  // choice4.addEventListener('click', function () {
-  //   console.log("choice 4 ev list")
-  //   if (choice4.value !== questionsArray[currentQuestion].answer) {
-  //     timeLeft -= 10;
-  //   } else {
-  //     score += 20;
-  //   }
-  //   // console.log('choice4 selected', choice4);
-
-  //   // quizQuestionSection = body.div.h2.removeChild(quizQuestionSection);
-  //   // quizQuestionSection = body.div.removeChild(choicesEl);
-  //   nextQuestion();
-
-
-
-  // });
-
 
 }
 
