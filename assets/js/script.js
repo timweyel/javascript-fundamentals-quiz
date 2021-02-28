@@ -98,6 +98,8 @@ body.appendChild(startButton);
 var quizQuestionSection = document.createElement('div');
 var quizQuestionText = document.createElement('h2');
 
+// var choiceSection = document.createElement('div');
+// quizQuestionSection.appendChild(choiceSection);
 var choice1 = document.createElement('button');
 var choice2 = document.createElement('button');
 var choice3 = document.createElement('button');
@@ -234,6 +236,7 @@ function displayChoices() {
   })
   
   quizQuestionSection.appendChild(choicesEl);
+
 
   //creates the buttons for choices
   //choice1

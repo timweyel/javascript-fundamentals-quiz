@@ -2,6 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: arial;
 }
 
 body {
@@ -11,9 +12,27 @@ body {
 nav {
   display: flex;
   justify-content: space-between;
-  margin: 10px 50px;
+  padding: 10px 50px;
+  background-color: lightgray;
 }
 
 #quizQuestion {
   text-align: center;
+  margin: 50px;
+}
+
+button {
+  border: none;
+  background-color: #4ea2e6;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 16px 10px 16px;
+  font-size: 17px;
+  margin: 4px;
+}
+
+input[type=text] {
+  border-radius: 5px;
+  padding: 8px 16px 8px 16px;
+  font-size: 17px;
 }
