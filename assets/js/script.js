@@ -61,7 +61,11 @@ var scoresLink = document.createTextNode("Scores");
 a.setAttribute('style', 'text-align: left');
 a.appendChild(scoresLink);
 a.title = 'Scores';
+<<<<<<< HEAD
 a.href = "./scores.html";
+=======
+a.href = "https://timweyel.github.io/javascript-fundamentals-quiz/scores.html";
+>>>>>>> develop
 nav.appendChild(a);
 
 scoresLink.addEventListener('click', function(event) {
