@@ -61,7 +61,7 @@ var scoresLink = document.createTextNode("Scores");
 a.setAttribute('style', 'text-align: left');
 a.appendChild(scoresLink);
 a.title = 'Scores';
-a.href = "./scores.html";
+a.href = "https://timweyel.github.io/javascript-fundamentals-quiz/scores.html";
 nav.appendChild(a);
 
 scoresLink.addEventListener('click', function(event) {
@@ -147,7 +147,6 @@ function setScore() {
   localStorage.setItem("scoreName",  document.getElementById('name').value);
   getScore();
 }
-
 
 function getScore() {
   quizQuestionSection.innerHTML = 
