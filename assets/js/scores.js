@@ -12,11 +12,6 @@ a.appendChild(linkWords);
 a.href = "./index.html";
 nav.appendChild(a);
 
-
-
-
-
-
 var h1El = document.createElement('h1');
 h1El.textContent = 'Name: ' + localStorage.getItem("scoreName");
 body.appendChild(h1El);
@@ -28,23 +23,7 @@ body.appendChild(h3El);
 var clearScoreButton = document.createElement('button');
 clearScoreButton.textContent = 'Clear score!';
 body.appendChild(clearScoreButton);
-clearScoreButton.setAttribute('onclick', clearScore);
 
-
-function getScore() {
-  quizQuestionSection.innerHTML = `
-  <h2>` + localStorage.getItem("scoreName") + `'s score is:</h2>
-  <h1>` + localStorage.getItem("score") + `</h1><br> 
-  
-  <button onclick="clearScore()">Clear score!</button><button onclick="startGame()">Play Again!</button>
-  
-  `;
-}
-
-getScore();
-
-function clearScore() {
+clearScoreButton.onclick = function() {
   localStorage.clear();
-
 }
-

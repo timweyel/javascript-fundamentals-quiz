@@ -38,6 +38,7 @@ input[type=text] {
 }
 
 h1 {
+  padding-top: 25px;
   min-height: 75px;
 }
 

@@ -49,16 +49,6 @@ var questionsArray = [{
   answer: "push( )"
 }];
 
-// functions needed to:
-// start the game/timer
-// loop through questions
-// subtract time when there's an incorrect answer
-// end the game when time runs out
-// what if all questions answered before time runs out?
-// restart the game
-// add the score?
-// view the scores?
-
 var body = document.body;
 
 var nav = document.createElement('nav');
@@ -98,8 +88,6 @@ body.appendChild(startButton);
 var quizQuestionSection = document.createElement('div');
 var quizQuestionText = document.createElement('h2');
 
-// var choiceSection = document.createElement('div');
-// quizQuestionSection.appendChild(choiceSection);
 var choice1 = document.createElement('button');
 var choice2 = document.createElement('button');
 var choice3 = document.createElement('button');
@@ -117,26 +105,24 @@ startButton.onclick = startGame;
 
 // Timer that counts down from timeLeft
 function startGame() {
-  //console.log("start game")
-
-  // TODO: Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   countdown = setInterval(function () {
 
     if (timeLeft > 1) {
+      timerEl.setAttribute('style', 'color: red');
       timerEl.textContent = `Time left: ${timeLeft} seconds`;
       timeLeft--;
     } else if (timeLeft === 1) {
       timerEl.textContent = `Time left: ${timeLeft} second`;
       timeLeft--;
     } else {
-      timerEl.textContent = '';
+      timerEl.textContent = `Time left: 0 seconds`;
       endGame();
     }
   }, 1000);
 
   startButton = body.removeChild(startButton);
-  h1El = body.removeChild(h1El);
   h3El = body.removeChild(h3El);
+  quizQuestionSection.innerHTML = '';
   nextQuestion();
 };
 
@@ -145,7 +131,6 @@ function startGame() {
 function endGame() {
   clearInterval(countdown);
   
-  console.log('end game');
   quizQuestionSection.innerHTML = 
   `
   <h2>Game Over</h2>
@@ -165,12 +150,12 @@ function setScore() {
 
 
 function getScore() {
-  quizQuestionSection.innerHTML = `
+  quizQuestionSection.innerHTML = 
+  `
   <h2>` + localStorage.getItem("scoreName") + `'s score is:</h2>
   <h1>` + localStorage.getItem("score") + `</h1>
   
-  <button onclick="clearScore()">Clear score!</button><button onclick="startGame()">Play Again!</button>
-  
+  <button onclick="clearScore()">Clear score!</button><button onclick="resetGame()">Play Again!</button>
   `;
 }
 
@@ -187,11 +172,9 @@ function resetGame() {
 
 //loop through questions
 function nextQuestion() {
+  
   quizQuestionSection.innerHTML = ''
-  //console.log("next question")
 
-  // console.log('current Q', currentQuestion);
-  // console.log('score', score);
   currentQuestion += 1;
 
   if (currentQuestion > questionsArray.length - 1) {
@@ -199,13 +182,11 @@ function nextQuestion() {
     return;
   }
 
-
   displayQuestion();
 }
 
 //displays the current question
 function displayQuestion() {
-  //console.log("display question")
 
   quizQuestionSection.className = 'quizSection';
   body.appendChild(quizQuestionSection)
@@ -216,15 +197,12 @@ function displayQuestion() {
   displayChoices();
 }
 
-
 //displays the current question's choices
 function displayChoices() {
-  //console.log("display choice")
   var choicesEl = document.createElement('div');
   choicesEl.addEventListener('click', function (e) {
     if (e.target.matches('button')) {
       if (e.target.value !== questionsArray[currentQuestion].answer) {
-        //e.target.setAttribute('style', 'background-color: red');
         timeLeft -= 10;
       } else {
         score += 20;
@@ -235,7 +213,6 @@ function displayChoices() {
   })
   
   quizQuestionSection.appendChild(choicesEl);
-
 
   //creates the buttons for choices
   //choice1
@@ -261,7 +238,4 @@ function displayChoices() {
   choice4.setAttribute('value', questionsArray[currentQuestion].choices[3]);
   choice4.id = 'choice4';
   choicesEl.appendChild(choice4);
-
 }
-
-
