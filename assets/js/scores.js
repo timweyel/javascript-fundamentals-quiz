@@ -9,7 +9,7 @@ var a = document.createElement('a');
 var linkWords = document.createTextNode("Back to game");
 a.setAttribute('style', 'text-align: left');
 a.appendChild(linkWords);
-a.href = "https://timweyel.github.io/javascript-fundamentals-quiz/index.html";
+a.href = "/index.html";
 nav.appendChild(a);
 
 var h1El = document.createElement('h1');
